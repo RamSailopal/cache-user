@@ -1,0 +1,48 @@
+#!/bin/bash
+  #
+  #
+  #       AUTHOR - Raman Sailopal 
+  #
+  # 
+  #       Script to restore live cache backup to a backup server
+  #       Restores output progress to a cacherest.log file.
+  #
+  #
+  # Sub-code with the cache commands to execute.
+  # \" notation is for quoting of quotation marks.
+  #
+if [[ "$1" == "" ]]
+then
+	echo "Please pass the user name as the first parameter"
+	exit
+fi
+if [[ "$2" == "" ]]
+then
+	echo "Please pass the password as the second parameter"
+	exit
+fi
+if [[ "$3" == "" ]]
+then
+	echo "Please pass the Full name as the third parameter"
+	exit
+fi
+if [[ "$4" == "" ]]
+then
+	echo "Please pass the name space as the 4th parameter"
+	exit
+fi
+if [[ "$5" == "" ]]
+then
+	echo "Please pass the role as the 5th parameter"
+	exit
+fi
+cmd()
+{
+       sleep 2;
+       echo "ZN \"%SYS\"";
+       sleep 2;
+       echo "S X=##Class(Security.Users).Create(\"$1\",\"$5\",\"$2\",\"$3\",\"$4\")";
+       sleep 2;
+       echo "H";
+}
+cmd $1 $2 $3 $4 $5 |csession {{ instname }} -B
