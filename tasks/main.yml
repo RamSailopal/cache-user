@@ -12,32 +12,24 @@
      - { src: "templates/cacheuser", dest: "/tmp/cacheuser", mode: "0744" }
      - { src: "templates/userchk", dest: "/tmp/userchk", mode: "0744" }
      - { src: "templates/userdel", dest: "/tmp/userdel", mode: "0744" }
-
 - name: Set up the new user
   command: '/tmp/cacheuser "{{ user }}" "{{ password }}" "{{ fullname }}" "{{ namespace }}" "{{ rowle }}"'
   when: stayte == "present"
-
 - name: Delete a user
   command: '/tmp/userdel "{{ user }}"'
   when: stayte == "absent"
-
-
 - name: Check that the new user has been setup correctly
   command: '/tmp/userchk "{{ user }}"'
   register: outpt
-
-- name: Write check to screen
+  - name: Write check to screen
   debug: msg="{{ user }} has been set up correctly"
   when: outpt.stdout is search("1") and stayte == "present" 
-
 - name: Write check to screen
   fail: msg="{{ user }} has NOT been set up correctly!!!!"
   when: outpt.stdout is not search("1") and stayte == "present"
-
 - name: Write check to screen
   debug: msg="{{ user }} has been deleted correctly"
   when: outpt.stdout is not search("1") and stayte == "absent"
-
 - name: Write check to screen
   fail: msg="{{ user }} has NOT been deleted correctly!!!!"
   when: outpt.stdout is search("1") and stayte == "absent"
