@@ -25,6 +25,9 @@
   debug: msg="{{ user }} has been set up correctly"
   when: outpt.stdout is search("1") and stayte == "present"
 - name: Write check to screen
+  debug: msg="{{ user }} has been set up correctly"
+  when: outpt.stdout is search("1") and stayte == "present"
+- name: Write check to screen
   fail: msg="{{ user }} has NOT been set up correctly!!!!"
   when: outpt.stdout is not search("1") and stayte == "present"
 - name: Write check to screen
