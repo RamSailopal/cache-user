@@ -4,8 +4,7 @@
   #       AUTHOR - Raman Sailopal 
   #
   # 
-  #       Script to restore live cache backup to a backup server
-  #       Restores output progress to a cacherest.log file.
+  #       Script to add user to Cache system
   #
   #
   # Sub-code with the cache commands to execute.
